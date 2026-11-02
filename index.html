@@ -359,7 +359,7 @@ const LEVY_HOURS = 10;        // a threatened capital raises a free Rifle Brigad
 const SAVE_KEY = "ironMeridianWorld_v3";
 // ---- real-time clock ----
 const SIM_DT = 0.1;           // fixed simulation step, in game hours
-const HOURS_PER_SEC = 1.0;    // game hours per real second at 1x
+const HOURS_PER_SEC = 24/900; // game hours per real second at 1x (15 real minutes = 1 game day)
 const COMBAT_K = 0.32;        // continuous combat damage scale (per game hour)
 const AUTOSAVE_SEC = 45;      // real seconds between autosaves
 
@@ -762,7 +762,7 @@ let G = null;               // full serialisable game state
 let IDX = [];               // IDX[pid] = stationed units in province
 let HOPS = [];              // HOPS[a][b] = adjacency hop distance (any medium)
 let LHOPS = [];             // LHOPS[a][b] = hop distance over land only
-const UI = { sel:null, selUnits:new Set(), tab:"prov", hover:null, speed:2, prevSpeed:2, fog:false, buildAt:null, collapsed:false };
+const UI = { sel:null, selUnits:new Set(), tab:"prov", hover:null, speed:1, prevSpeed:1, fog:false, buildAt:null, collapsed:false };
 
 function P(id){ return G.provs[id]; }
 function F(id){ return G.factions[id]; }
@@ -2346,7 +2346,7 @@ function confirmWar(b){ const f=F(b); UI.pendingWar=b; const truce=G.dip.truce[0
 
 function showHelp(){ showModal(`<div class="mbox glass" style="width:min(520px,96vw)"><h1 class="title" style="font-size:22px">HOW TO COMMAND</h1>
   <div class="sub" style="line-height:1.9;font-size:13px"><b>Touch</b><br>• Drag to pan · pinch to zoom · tap the minimap to jump<br>• Tap your province to select its units<br>• Then tap a destination to move / attack / strike — hold ~½ s to queue a waypoint<br>• Tap the selected province again (or ✕) to deselect · ■ halts<br>• Tabs at the bottom open the command sheet; tap the handle to collapse it<br><br>
-  <b>Mouse</b><br>• Left-click select · drag pan · wheel zoom · right-click order · Shift+right-click queue<br>• <kbd>Space</kbd> pause · <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> speed · <kbd>X</kbd> halt · <kbd>F</kbd> fog</div>
+  <b>Mouse</b><br>• Left-click select · drag pan · wheel zoom · right-click order · Shift+right-click queue<br>• <kbd>Space</kbd> pause · <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> speed (1× = 15 real min per game day) · <kbd>X</kbd> halt · <kbd>F</kbd> fog</div>
   <div class="go" style="justify-content:center"><button class="btn pri" data-act="close">Got it</button></div></div>`); }
 
 /* =====================================================================
